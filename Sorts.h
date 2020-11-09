@@ -118,12 +118,12 @@ void Merge_Sort(Sequence<T>* seq, int (*cmp)(T, T), int left, int right)
 {
     if (left < right) 
     {                                                         // (l + r) / 2 == l + (r - l)/ 2 çàòî áåç ïðîáëåì
-        int middle = left + (right - left) / 2;                                 // äåëèì ïîïîëàì
+        int middle = left + (right - left) / 2;                                 
 
         Merge_Sort(seq, cmp, left, middle);                                     //1 отсорт
-        Merge_Sort(seq, cmp, middle + 1, right);                                //ïðîäîëæàåì //рекурсивная сортировка полученных массивов 2 отсорт
+        Merge_Sort(seq, cmp, middle + 1, right);                                //рекурсивная сортировка полученных массивов 2 отсорт
         
-        Merge(seq, cmp, left, middle, right);                                   // ïîòèõîíüêó ìåðäæèì
+        Merge(seq, cmp, left, middle, right);                                   
     }
 }
 
@@ -148,8 +148,8 @@ private:
         node* right;
     };
     node* root;
-    int count_for_KLP;
-    // äëÿ äåñòðóêòîðà
+    int count;
+    // для деструктора
     void destroy_tree(node* branch) {
         if (branch != nullptr) {
             destroy_tree(branch->left);
@@ -158,15 +158,15 @@ private:
         }
     }
 
-    int cmp_for_BST(T a, T b) {
+    int cmp_BST(T a, T b) {
         if (a > b)
             return 1;
         return 0;
     }
 
-    void insert_help(node* branch, T item) {    // ïîìîùü äëÿ âñòàâêè 
+    void insert_help(node* branch, T item) {    // помощь для вставки 
         node* cur = branch;
-        if (cmp_for_BST(cur->data, item)) {
+        if (cmp_BST(cur->data, item)) {
             if (cur->left != nullptr) {
                 insert_help(cur->left, item);
             }
@@ -190,14 +190,14 @@ private:
         }
     }
 
-    // äëÿ ïðîáåãà
+    // для пробега
 
     Sequence<T>* LKP_help(node* branch, Sequence<T>* seq) {
         node* tmp = branch; // KLP
         if (tmp) {
             LKP_help(branch->left, seq);
-            seq->Set(this->count_for_KLP, branch->data);
-            this->count_for_KLP++;
+            seq->Set(this->count, branch->data);
+            this->count++;
             LKP_help(branch->right, seq);;
         }
         return seq;
@@ -206,12 +206,12 @@ private:
 public:
     BST() {
         this->root = nullptr;
-        count_for_KLP = 0;
+        count = 0;
     };
 
     ~BST() {
         destroy_tree(this->root);
-        count_for_KLP = 0;
+        count = 0;
     };
 
     Sequence <T>* LKP(Sequence<T>* seq) {
