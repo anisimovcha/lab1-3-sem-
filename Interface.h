@@ -15,29 +15,20 @@ double time_sort(Sequence<int>* seq, Sequence<int>* (*sort)(Sequence<int>* seq, 
     return duration.count();
 }
 
-bool auto_check(Sequence<int>* seq, int (*cmp)(int a, int b)) {
-    if (seq->GetLength() == 0)
-        return 1;                                    //просто проверим, что каждое число меньше или равно след
-    for (int i = 0; i < seq->GetLength() - 1; i++) {
-        if (cmp(seq->Get(i), seq->Get(i + 1)))
-            return 0;
-    }
-    return 1;
-}
 
  
  
  
- void Interface () {
+void Interface () {
     int choice = 1;
      while (choice)    {
       cout << "_________________________________________________________________________________________" << endl;
       cout << "                                                                                         " << endl;
-      cout << " *** MENU *** " << endl;
+      cout << " *** MENU ***                                                                            " << endl;
       cout << "_________________________________________________________________________________________" << endl;
-      cout << "1) Sorting a sequence (manual input)" << endl;
-      cout << "2) Find out the best sorting time for a sequence (manual input)" << endl;
-      cout << "3) Sorting a sequence (automatic input)" << endl;
+      cout << "1) Sorting a sequence (manual input)                                                     " << endl;
+      cout << "2) Find out the best sorting time for a sequence (manual input)                          " << endl;
+      cout << "3) Sorting a sequence (automatic input)                                                  " << endl;
       cout << "4) To find out which sorting is faster in a sorted, unsorted and randomly sorted sequence" << endl;
       cout << "0) To exit" << endl;
       cout << "_________________________________________________________________________________________" << endl;
@@ -117,6 +108,8 @@ bool auto_check(Sequence<int>* seq, int (*cmp)(int a, int b)) {
 		
 		//проверка BubbleSort
 	      double best_time = time_sort (seq1, Bubble_Sort);
+	      cout << "Sorted sequence:" << endl;
+	      seq1->print();
 	      string best_name = "Bubble Sort";
 	      cout << "Bubble Sort: " << best_time << " microsecond " << endl;
 	      
@@ -128,7 +121,7 @@ bool auto_check(Sequence<int>* seq, int (*cmp)(int a, int b)) {
 		      best_name = "Merge Sort";
 	      }
 	      else if (time_for_merge == best_time)	{
-		      best_name += " and merge sort";
+		      best_name += " and Merge sort";
 		  }
 	      cout << "Merge Sort: " << time_for_merge << " microsecond " << endl;
 	      
@@ -139,20 +132,20 @@ bool auto_check(Sequence<int>* seq, int (*cmp)(int a, int b)) {
 		      best_name = "Quick Sort";
 	      }
 	      else if (time_for_quick == best_time)	{
-		      best_name += " and quick sort";
+		      best_name += " and Quick Sort";
 		  }
 	      cout << "Quick Sort: " << time_for_quick << " microsecond " << endl;
  
 		//проверка BST
-	      double time_for_BST = time_sort (seq3, Sort_With_Tree);	 
-	      if (time_for_BST < best_time) {
-		      best_time = time_for_BST;
+	      double time_for_BinaryTree = time_sort (seq3, Sort_With_Tree);	 
+	      if (time_for_BinaryTree < best_time) {
+		      best_time = time_for_BinaryTree;
 		      best_name = "sort with Binary Tree";
 		  }
-	      else if (time_for_BST == best_time) {
+	      else if (time_for_BinaryTree == best_time) {
 		      best_name += " and sort with Binary Tree";
 		  }
-	      cout << "Binary Tree sort: " << time_for_BST << " microsecond"<< endl;
+	      cout << "Binary Tree sort: " << time_for_BinaryTree << " microsecond"<< endl;
 	      cout << "                                                    "<< endl;
 	      cout << "The best sort is " << best_name << ", sorted for " <<	best_time << " microseconds" << endl;
 	    }
@@ -207,11 +200,11 @@ bool auto_check(Sequence<int>* seq, int (*cmp)(int a, int b)) {
       
  
     else if (choice == 4) {
-	  cout << " -------------------------------------------"	<< endl;
+	  cout << " ------------------------------------------- " << endl;
 	  cout << "| 1) Best sort for sorted sequence          |" << endl;
 	  cout << "| 2) Best sort for backward sorted sequence |" << endl;
-	  cout << "| 3) Best sort for random sorted sequence   |" <<  endl;
-	  cout << " -------------------------------------------"	<< endl;
+	  cout << "| 3) Best sort for random sorted sequence   |" << endl;
+	  cout << " ------------------------------------------- " << endl;
 	  cin >> choice;
 	  
 	     if (choice == 1) {
@@ -249,12 +242,13 @@ bool auto_check(Sequence<int>* seq, int (*cmp)(int a, int b)) {
  
 		//проверка MergeSort
 	      double time_for_merge = time_sort (seq2, Merge_Sort_for_seq);
+	      
 	      if (time_for_merge < best_time)		{
 		      best_time = time_for_merge;
 		      best_name = "Merge Sort";
 	      }
 	      else if (time_for_merge == best_time)	{
-		      best_name += " and merge sort";
+		      best_name += " and Merge Sort";
 		  }
 	      cout << "Merge Sort: " << time_for_merge << " microsecond " << endl;
 	      
@@ -265,21 +259,21 @@ bool auto_check(Sequence<int>* seq, int (*cmp)(int a, int b)) {
 		      best_name = "Quick Sort";
 	      }
 	      else if (time_for_quick == best_time)	{
-		      best_name += " and quick sort";
+		      best_name += " and Quick Sort";
 		  }
 	      cout << "Quick Sort: " << time_for_quick << " microsecond " << endl;
 	      
-		//проверка BST
-	      double time_for_BST = time_sort (seq3, Sort_With_Tree);	
-	      if (time_for_BST < best_time) {
-		      best_time = time_for_BST;
+		//проверка BinaryTree
+	      double time_for_BinaryTree = time_sort (seq3, Sort_With_Tree);	
+	      if (time_for_BinaryTree < best_time) {
+		      best_time = time_for_BinaryTree;
 		      best_name = "sort with Binary Tree";
 		  }
-	      else if (time_for_BST == best_time) {
+	      else if (time_for_BinaryTree == best_time) {
 		      best_name += " and sort with Binary Tree";
 		  }
-	      cout << "Binary Tree sort: " << time_for_BST << " microsecond"<< endl;
-	      cout << "                                                    "<< endl;
+	      cout << "Binary Tree sort: " << time_for_BinaryTree << " microsecond"<< endl;
+	      cout << "                                                           "<< endl;
 	      cout << "The best sort is " << best_name << ", sorted for " <<	best_time << " microseconds" << endl;
 	    }
 	  
@@ -326,7 +320,7 @@ bool auto_check(Sequence<int>* seq, int (*cmp)(int a, int b)) {
 		      best_name = "Merge Sort";
 	      }
 	      else if (time_for_merge == best_time)	{
-		      best_name += " and merge sort";
+		      best_name += " and Merge Sort";
 		  }
 	      cout << "Merge Sort: " << time_for_merge << " microsecond " << endl;
 	      
@@ -337,21 +331,21 @@ bool auto_check(Sequence<int>* seq, int (*cmp)(int a, int b)) {
 		      best_name = "Quick Sort";
 	      }
 	      else if (time_for_quick == best_time)	{
-		      best_name += " and quick sort";
+		      best_name += " and Quick Sort";
 		  }
 	      cout << "Quick Sort: " << time_for_quick << " microsecond " << endl;
 	      
-		//проверка BST
-	      double time_for_BST = time_sort (seq3, Sort_With_Tree);	
-	      if (time_for_BST < best_time) {
-		      best_time = time_for_BST;
+		//проверка BinaryTree
+	      double time_for_BinaryTree = time_sort (seq3, Sort_With_Tree);	
+	      if (time_for_BinaryTree < best_time) {
+		      best_time = time_for_BinaryTree;
 		      best_name = "sort with Binary Tree";
 		  }
-	      else if (time_for_BST == best_time) {
+	      else if (time_for_BinaryTree == best_time) {
 		      best_name += " and sort with Binary Tree";
 		  }
-	      cout << "Binary Tree sort: " << time_for_BST << " microsecond"<< endl;
-	      cout << "                                                    "<< endl;
+	      cout << "Binary Tree sort: " << time_for_BinaryTree << " microsecond"<< endl;
+	      cout << "                                                           "<< endl;
 	      cout << "The best sort is " << best_name << ", sorted for " << best_time << " microseconds" << endl;
 	    }
 
@@ -368,7 +362,7 @@ bool auto_check(Sequence<int>* seq, int (*cmp)(int a, int b)) {
 	      ArraySequence < int >sorted_arr (length);
 	      Sequence < int >*seq1 = &sorted_arr;
 	      for (int i = 0; i < length; i++) {
-		  seq1->Set (i, -length / 2 + rand () % length);
+		  seq1->Set (i, -length / 3 + rand () % length);
 	 	  } 
 		  cout << "  Randomly sorted sequence:" << endl;
 	      seq1->print ();
@@ -386,6 +380,8 @@ bool auto_check(Sequence<int>* seq, int (*cmp)(int a, int b)) {
 		
 		//проверка BubbleSort
 	      double best_time = time_sort (seq1, Bubble_Sort);
+	      cout << "  Sorted sequence:" << endl;
+	      seq1->print();
 	      string best_name = "Bubble Sort";
 	      cout << "Bubble Sort: " << best_time << " microsecond " << endl;
 	      
@@ -397,7 +393,7 @@ bool auto_check(Sequence<int>* seq, int (*cmp)(int a, int b)) {
 		      best_name = "Merge Sort";
 	      }
 	      else if (time_for_merge == best_time)	{
-		      best_name += " and merge sort";
+		      best_name += " and Merge Sort";
 		  }
 	      cout << "Merge Sort: " << time_for_merge << " microsecond " << endl;
 	      
@@ -408,20 +404,20 @@ bool auto_check(Sequence<int>* seq, int (*cmp)(int a, int b)) {
 		      best_name = "Quick Sort";
 	      }
 	      else if (time_for_quick == best_time)	{
-		      best_name += " and quick sort";
+		      best_name += " and Quick Sort";
 		  }
 	      cout << "Quick Sort: " << time_for_quick << " microsecond " << endl;
 	      
-		//проверка BST
-	      double time_for_BST = time_sort (seq3, Sort_With_Tree);	
-	      if (time_for_BST < best_time) {
-		      best_time = time_for_BST;
+		//проверка BinaryTree
+	      double time_for_BinaryTree = time_sort (seq3, Sort_With_Tree);	
+	      if (time_for_BinaryTree < best_time) {
+		      best_time = time_for_BinaryTree;
 		      best_name = "sort with Binary Tree";
 		  }
-	      else if (time_for_BST == best_time) {
+	      else if (time_for_BinaryTree == best_time) {
 		      best_name += " and sort with Binary Tree";
 		  }
-	      cout << "Binary Tree sort: " << time_for_BST << " microsecond"<< endl;
+	      cout << "Binary Tree sort: " << time_for_BinaryTree << " microsecond"<< endl;
 	      cout << "                                                    "<< endl;
 	      cout << "The best sort is " << best_name << ", sorted for " <<	best_time << " microseconds" << endl;
 	    }
@@ -429,6 +425,6 @@ bool auto_check(Sequence<int>* seq, int (*cmp)(int a, int b)) {
 	    choice = 4;
 	}
 	
-  }
+    }
 
 }
